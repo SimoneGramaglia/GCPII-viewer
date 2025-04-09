@@ -28,10 +28,10 @@
         directionalLight.position.set(1, 1, 1).normalize();
         scene.add(directionalLight);
 
-        // Carica il modello GLB
+        // Carica il modello GLB da GitHub
         const loader = new GLTFLoader();
         loader.load(
-            'https://raw.githubusercontent.com/SimoneGramaglia/GCPII-viewer/main/GCPII.glb',
+            'https://raw.githubusercontent.com/SimoneGramaglia/GCPII-viewer/main/GCPII.glb',  // Corretto con ?raw=true
             function (gltf) {
                 scene.add(gltf.scene);
             },
