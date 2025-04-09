@@ -12,45 +12,46 @@
 <body>
     <canvas id="viewer"></canvas>
 
-   <script type="module">
-    import * as THREE from './node_modules/three/build/three.module.js';
-    import { GLTFLoader } from './node_modules/three/examples/js/loaders/GLTFLoader.js';
+    <script type="module">
+        // Carica Three.js e GLTFLoader dal CDN
+        import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.131.3/build/three.module.js';
+        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.131.3/examples/jsm/loaders/GLTFLoader.js';
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('viewer') });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('viewer') });
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // Aggiungi luce alla scena
-    const light = new THREE.AmbientLight(0x404040); // luce diffusa
-    scene.add(light);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(1, 1, 1).normalize();
-    scene.add(directionalLight);
+        // Aggiungi luce alla scena
+        const light = new THREE.AmbientLight(0x404040); // luce diffusa
+        scene.add(light);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(1, 1, 1).normalize();
+        scene.add(directionalLight);
 
-    // Carica il modello GLB
-    const loader = new GLTFLoader();
-    loader.load(
-        'GCPII.glb',
-        function (gltf) {
-            scene.add(gltf.scene);
-        },
-        function (xhr) {
-            console.log(`${(xhr.loaded / xhr.total * 100).toFixed(2)}% caricato`);
-        },
-        function (error) {
-            console.error('Errore nel caricamento del modello:', error);
+        // Carica il modello GLB
+        const loader = new GLTFLoader();
+        loader.load(
+            'GCPII.glb', // Assicurati che il file GLB sia nella stessa cartella del tuo index.html
+            function (gltf) {
+                scene.add(gltf.scene);
+            },
+            function (xhr) {
+                console.log(`${(xhr.loaded / xhr.total * 100).toFixed(2)}% caricato`);
+            },
+            function (error) {
+                console.error('Errore nel caricamento del modello:', error);
+            }
+        );
+
+        camera.position.z = 5;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
         }
-    );
-
-    camera.position.z = 5;
-
-    function animate() {
-        requestAnimationFrame(animate);
-        renderer.render(scene, camera);
-    }
-    animate();
-</script>
+        animate();
+    </script>
 
 </body>
 </html>
