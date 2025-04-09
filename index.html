@@ -13,9 +13,9 @@
     <canvas id="viewer"></canvas>
 
     <script type="module">
-        // Carica Three.js e GLTFLoader dal CDN
+        // Importa three.js dal CDN
         import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.131.3/build/three.module.js';
-        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.131.3/examples/jsm/loaders/GLTFLoader.js';
+        import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.131.3/examples/js/loaders/GLTFLoader.js';
 
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -32,7 +32,7 @@
         // Carica il modello GLB
         const loader = new GLTFLoader();
         loader.load(
-            'GCPII.glb', // Assicurati che il file GLB sia nella stessa cartella del tuo index.html
+            'https://simonegramaglia.github.io/GCPII-viewer/GCPII.glb', // Assicurati che il percorso del modello sia corretto
             function (gltf) {
                 scene.add(gltf.scene);
             },
@@ -52,6 +52,5 @@
         }
         animate();
     </script>
-
 </body>
 </html>
